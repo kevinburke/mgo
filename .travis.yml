@@ -17,6 +17,9 @@ env:
         - GO=1.4.1 MONGODB=x86_64-3.2.3-nojournal
         - GO=1.5.3 MONGODB=x86_64-3.0.9
         - GO=1.6   MONGODB=x86_64-3.0.9
+        - GO=1.7   MONGODB=x86_64-3.0.9
+        - GO=1.8   MONGODB=x86_64-3.0.9
+        - GO=tip   MONGODB=x86_64-3.0.9
 
 install:
     - eval "$(gimme $GO)"
@@ -38,6 +41,7 @@ before_script:
     - make startdb
 
 script:
+    - go vet ./...
     - (cd bson && go test -check.v)
     - go test -check.v -fast
     - (cd txn && go test -check.v)
